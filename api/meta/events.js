@@ -1,16 +1,7 @@
 var META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN || '';
-var META_PIXEL_ID = process.env.META_PIXEL_ID || '28539753075611411';
+var META_PIXEL_ID = process.env.META_PIXEL_ID || '1309829625537659';
 var META_API_VERSION = 'v18.0';
 var META_API = 'https://graph.facebook.com/' + META_API_VERSION;
-
-var events = {
-  page_view:     { name: 'PageView' },
-  service_select:{ name: 'SelectContent', content_category: 'service' },
-  slot_click:    { name: 'InitiateCheckout' },
-  whatsapp_click:{ name: 'Contact' },
-  call_click:    { name: 'Contact' },
-  franchise_click:{ name: 'Lead' }
-};
 
 export default async function handler(req) {
   if (!META_ACCESS_TOKEN) {

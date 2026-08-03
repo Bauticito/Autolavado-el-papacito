@@ -16,7 +16,7 @@ Landing page premium. HTML5 + CSS3 + JS vanilla. Deploy en Vercel.
 |---|---|
 | openDays | 0,1,2,3,4,5,6 |
 | openHour | 8 |
-| closeHour | 21 |
+| closeHour | 20 |
 | slotInterval | 60 |
 
 - `openDays`: 0 = domingo, 1 = lunes, ..., 6 = sábado. Separado por comas.
@@ -42,9 +42,7 @@ En `script.js`, objeto `CONFIG`:
 ```js
 services: [
   { name: 'A domicilio', price: '$100' },
-  { name: 'Local',        price: '$150' },
-  { name: 'Express',      price: '$80' }   // agregá los que quieras
-],
+  { name: 'On site',     price: '$150' },
 washDuration: 30   // minutos por lavado
 ```
 

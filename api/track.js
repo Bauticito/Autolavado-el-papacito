@@ -4,7 +4,10 @@ export default async function handler(req) {
   var now = Date.now();
   var oneHourAgo = now - 3600000;
   visits = visits.filter(function(v){ return v.ts > oneHourAgo; });
-  visits.push({ ts: now });
+
+  if (req.method === 'POST') {
+    visits.push({ ts: now });
+  }
 
   var count = visits.length;
   var alert = count >= 50;

@@ -8,6 +8,8 @@ var ASSETS = [
   '/assets/logo.png',
   '/assets/logo.mp4',
   '/assets/negociador.mp4',
+  '/assets/icon-192.png',
+  '/assets/icon-512.png',
   '/manifest.json'
 ];
 

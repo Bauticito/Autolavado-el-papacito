@@ -1,7 +1,6 @@
 {
   "name": "autolavado-el-papacito",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": ""
   },

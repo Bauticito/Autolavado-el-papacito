@@ -1,6 +1,6 @@
 var visits = [];
 
-export default async function handler(req) {
+module.exports = async function handler(req, res) {
   var now = Date.now();
   var oneHourAgo = now - 3600000;
   visits = visits.filter(function(v){ return v.ts > oneHourAgo; });
@@ -12,8 +12,5 @@ export default async function handler(req) {
   var count = visits.length;
   var alert = count >= 50;
 
-  return new Response(JSON.stringify({ count: count, alert: alert, threshold: 50 }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }
-  });
-}
+  res.status(200).json({ count: count, alert: alert, threshold: 50 });
+};

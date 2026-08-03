@@ -3,23 +3,21 @@ var META_PIXEL_ID = process.env.META_PIXEL_ID || '1309829625537659';
 var META_API_VERSION = 'v18.0';
 var META_API = 'https://graph.facebook.com/' + META_API_VERSION;
 
-export default async function handler(req) {
+module.exports = async function handler(req, res) {
   if (!META_ACCESS_TOKEN) {
-    return new Response(JSON.stringify({ ok: false, reason: 'META_ACCESS_TOKEN not set' }), {
-      status: 200, headers: { 'Content-Type': 'application/json' }
-    });
+    return res.status(200).json({ ok: false, reason: 'META_ACCESS_TOKEN not set' });
   }
 
   try {
-    var body = await req.json();
+    var body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     var eventName = body.event || 'page_view';
     var detail = body.detail || '';
     var sourceUrl = body.url || 'https://autolavado-el-papacito.vercel.app';
     var eventTime = Math.floor(Date.now() / 1000);
 
     var userData = {
-      client_ip_address: req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || '',
-      client_user_agent: req.headers.get('user-agent') || ''
+      client_ip_address: req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '',
+      client_user_agent: req.headers['user-agent'] || ''
     };
 
     if (body.email) userData.em = body.email;
@@ -37,7 +35,7 @@ export default async function handler(req) {
       test_event_code: process.env.META_TEST_CODE || undefined
     };
 
-    var res = await fetch(META_API + '/' + META_PIXEL_ID + '/events', {
+    var metaRes = await fetch(META_API + '/' + META_PIXEL_ID + '/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -46,13 +44,9 @@ export default async function handler(req) {
       body: JSON.stringify(payload)
     });
 
-    var result = await res.json();
-    return new Response(JSON.stringify({ ok: true, meta: result }), {
-      status: 200, headers: { 'Content-Type': 'application/json' }
-    });
+    var result = await metaRes.json();
+    res.status(200).json({ ok: true, meta: result });
   } catch (e) {
-    return new Response(JSON.stringify({ ok: false, error: e.message }), {
-      status: 200, headers: { 'Content-Type': 'application/json' }
-    });
+    res.status(200).json({ ok: false, error: e.message });
   }
-}
+};

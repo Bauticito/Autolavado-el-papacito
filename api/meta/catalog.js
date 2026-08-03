@@ -2,11 +2,9 @@ var META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN || '';
 var META_PIXEL_ID = process.env.META_PIXEL_ID || '1309829625537659';
 var META_API = 'https://graph.facebook.com/v18.0';
 
-export default async function handler(req) {
+module.exports = async function handler(req, res) {
   if (!META_ACCESS_TOKEN) {
-    return new Response(JSON.stringify({ ok: false, reason: 'META_ACCESS_TOKEN not set' }), {
-      status: 200, headers: { 'Content-Type': 'application/json' }
-    });
+    return res.status(200).json({ ok: false, reason: 'META_ACCESS_TOKEN not set' });
   }
 
   try {
@@ -16,7 +14,7 @@ export default async function handler(req) {
       { id: 'suc-01',  name: 'Franquicia — sucursal', price: '4000', currency: 'MXN', availability: 'in stock' }
     ];
 
-    var res = await fetch(META_API + '/' + META_PIXEL_ID + '/events', {
+    var metaRes = await fetch(META_API + '/' + META_PIXEL_ID + '/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,13 +39,9 @@ export default async function handler(req) {
       })
     });
 
-    var result = await res.json();
-    return new Response(JSON.stringify({ ok: true, catalog: services, meta: result }), {
-      status: 200, headers: { 'Content-Type': 'application/json' }
-    });
+    var result = await metaRes.json();
+    res.status(200).json({ ok: true, catalog: services, meta: result });
   } catch (e) {
-    return new Response(JSON.stringify({ ok: false, error: e.message }), {
-      status: 200, headers: { 'Content-Type': 'application/json' }
-    });
+    res.status(200).json({ ok: false, error: e.message });
   }
-}
+};

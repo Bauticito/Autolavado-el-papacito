@@ -1,11 +1,13 @@
-var CACHE = 'el-papacito-v2';
+var CACHE = 'el-papacito-v3';
 var ASSETS = [
   '/',
   '/index.html',
+  '/sucursal.html',
   '/styles.css',
   '/script.js',
   '/assets/logo.png',
   '/assets/logo.mp4',
+  '/assets/negociador.mp4',
   '/manifest.json'
 ];
 

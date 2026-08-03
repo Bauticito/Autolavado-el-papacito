@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciá tu sucursal — El Papacito</title>
+
+  <meta name="description" content="Iniciá tu sucursal de Autolavado El Papacito por solo $4,000. Nosotros nos encargamos de lo pesado." />
+  <meta property="og:title" content="Iniciá tu sucursal — El Papacito" />
+  <meta property="og:description" content="Iniciá tu propia sucursal por solo $4,000." />
+  <meta property="og:image" content="/assets/logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#000;font-family:'Inter',sans-serif;overflow:hidden}
+    .bg{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:1}
+    .content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;text-align:center}
+    h1{font-size:clamp(28px,6vw,52px);font-weight:800;color:#D4AF37;line-height:1.2;max-width:640px}
+    h1 span{color:#fff;display:block;font-size:clamp(22px,4.5vw,38px);margin-top:6px;font-weight:600}
+    p{color:#ccc;font-size:clamp(14px,2.5vw,18px);margin-top:20px;max-width:480px;line-height:1.6}
+    .btn{display:inline-flex;align-items:center;justify-content:center;background:#D4AF37;color:#000;text-decoration:none;padding:16px 40px;border-radius:4px;font-size:16px;font-weight:700;margin-top:28px;transition:background .15s}
+    .btn:hover{background:#F5D76E}
+    .back{position:fixed;top:20px;left:20px;z-index:3;color:#888;text-decoration:none;font-size:13px;font-weight:500;transition:color .15s}
+    .back:hover{color:#D4AF37}
+  </style>
+</head>
+<body>
+
+<video class="bg" src="assets/negociador.mp4" autoplay loop muted playsinline></video>
+<div class="overlay"></div>
+
+<a class="back" href="/">← Volver</a>
+
+<div class="content">
+  <h1>Iniciá tu sucursal<span>solo por $4,000</span></h1>
+  <p>Nosotros nos encargamos de lo pesado. Vos solo encargate de atender.</p>
+  <a class="btn" href="https://wa.me/524491063865?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20iniciar%20mi%20sucursal" target="_blank" rel="noopener">Quiero mi sucursal</a>
+</div>
+
+</body>
+</html>

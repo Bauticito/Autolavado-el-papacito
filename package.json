@@ -1,11 +1,11 @@
 {
   "name": "autolavado-el-papacito",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": ""
   },
   "dependencies": {
-    "@vercel/node": "^5.9.3",
     "@vercel/speed-insights": "^2.0.0"
   }
 }

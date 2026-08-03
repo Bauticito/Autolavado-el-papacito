@@ -16,9 +16,12 @@ export default async function handler(req) {
       { id: 'suc-01',  name: 'Franquicia — sucursal', price: '4000', currency: 'MXN', availability: 'in stock' }
     ];
 
-    var res = await fetch(META_API + '/' + META_PIXEL_ID + '/events?access_token=' + META_ACCESS_TOKEN, {
+    var res = await fetch(META_API + '/' + META_PIXEL_ID + '/events', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + META_ACCESS_TOKEN
+      },
       body: JSON.stringify({
         data: services.map(function(s){
           return {

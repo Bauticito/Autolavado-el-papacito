@@ -69,10 +69,10 @@ autolavado-el-papacito/
 
 | # | Archivo:Línea | Descripción |
 |---|---------------|-------------|
-| 1 | `script.js:206-230` | **Calendar link usa fecha de hoy para slots de mañana.** Si el slot dice "Mañana 08:00", el link de Google Calendar se genera con la fecha de HOY. |
-| 2 | `script.js:250-251` | **WhatsApp message usa fecha de hoy para slots de mañana.** Mismo bug, distinto lugar. |
-| 3 | `api/meta/events.js:40` | **Token de Meta en URL query string.** `?access_token=...` expone el token en logs de Vercel, Facebook, y proxies. |
-| 4 | `api/meta/catalog.js:19` | **Mismo token-en-URL.** |
+| 1 | `script.js:206-230` | ~~**Calendar link usa fecha de hoy para slots de mañana.**~~ ✅ FIXED — `getSlotDate()` deriva la fecha real del slot (hoy/mañana/próximo día hábil) y `buildCalendarLink` la usa |
+| 2 | `script.js:250-251` | ~~**WhatsApp message usa fecha de hoy para slots de mañana.**~~ ✅ FIXED — mismo fix, `reservar()` usa `getSlotDate(hora)` |
+| 3 | `api/meta/events.js:40` | ~~**Token de Meta en URL query string.**~~ ✅ FIXED — movido a header `Authorization: Bearer` |
+| 4 | `api/meta/catalog.js:19` | ~~**Mismo token-en-URL.**~~ ✅ FIXED — header `Authorization: Bearer` |
 
 ### 🟠 Altos
 
@@ -119,7 +119,7 @@ autolavado-el-papacito/
 2. Verificar Pixel ID en business.facebook.com/settings/pixels
 3. Generar token con permisos `pages_show_list`, `pages_manage_posts`, `ads_management`
 4. Setear `META_ACCESS_TOKEN` en Vercel → Settings → Environment Variables
-5. Mover token del URL query string al header `Authorization: Bearer`
+5. ✅ Token movido del URL query string al header `Authorization: Bearer` (events.js + catalog.js)
 6. Agregar `event_id` para deduplicación browser pixel + CAPI
 7. Hashear user data (SHA256) antes de enviar a CAPI
 
@@ -129,8 +129,8 @@ autolavado-el-papacito/
 
 | # | Severidad | Ubicación | Descripción |
 |---|-----------|-----------|-------------|
-| 1 | 🔴 CRÍTICO | `api/meta/events.js:40` | Token Meta en URL. Expuesto en logs. |
-| 2 | 🔴 CRÍTICO | `api/meta/catalog.js:19` | Ídem. |
+| 1 | 🔴 CRÍTICO | `api/meta/events.js:40` | ~~Token Meta en URL.~~ ✅ FIXED — header `Authorization: Bearer` |
+| 2 | 🔴 CRÍTICO | `api/meta/catalog.js:19` | ~~Ídem.~~ ✅ FIXED — header `Authorization: Bearer` |
 | 3 | 🟠 ALTO | `vercel.json` | Sin Content-Security-Policy. |
 | 4 | 🟠 ALTO | `api/meta/events.js:25-26` | Acepta email/phone arbitrario del body sin auth. |
 | 5 | 🟠 ALTO | `api/meta/catalog.js` | Sin autenticación. Cualquiera puede POSTear. |
@@ -174,8 +174,8 @@ autolavado-el-papacito/
 | **Vercel Speed Insights** — activar en dashboard | Pendiente (2 clicks) |
 | **Custom domain** — dominio propio | Pendiente |
 | **CSP header** — Content-Security-Policy | Pendiente |
-| **Fix fecha mañana** — Calendar link y WhatsApp msg | Pendiente |
-| **Fix token en URL** — mover a header Authorization | Pendiente |
+| **Fix fecha mañana** — Calendar link y WhatsApp msg | ✅ Hecho (getSlotDate) |
+| **Fix token en URL** — movido a header Authorization | ✅ Hecho (events.js + catalog.js) |
 | **Fix contraste gantt** — WCAG AA | Pendiente |
 | **Keyboard navigation** — focus styles + tabindex | Pendiente |
 | **Google Sheets** — SCHEDULE_SHEET_ID = null, nunca se usó | Pendiente |
@@ -216,10 +216,9 @@ Cambios en CONFIG → `git push` → Vercel redeploya automáticamente.
 | Métrica | Valor |
 |---------|-------|
 | Archivos fuente (sin node_modules) | 15 |
-| Bugs encontrados | 14 |
-| Issues de seguridad | 10 |
-| Issues de performance | 8 |
-| Issues de accesibilidad | 10 |
-| Código muerto | 6 |
-| Datos duplicados | 6 |
-| **Total issues** | **54** |
+| Bugs encontrados | 20 |
+| Issues de seguridad | 8 |
+| Issues de performance | 6 |
+| Issues de accesibilidad | 2 |
+| Datos duplicados | 4 |
+| **Total issues documentados** | **40** |

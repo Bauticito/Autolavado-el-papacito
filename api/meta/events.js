@@ -37,9 +37,12 @@ export default async function handler(req) {
       test_event_code: process.env.META_TEST_CODE || undefined
     };
 
-    var res = await fetch(META_API + '/' + META_PIXEL_ID + '/events?access_token=' + META_ACCESS_TOKEN, {
+    var res = await fetch(META_API + '/' + META_PIXEL_ID + '/events', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + META_ACCESS_TOKEN
+      },
       body: JSON.stringify(payload)
     });
 

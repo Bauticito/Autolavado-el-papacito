@@ -143,7 +143,7 @@ function refreshSlots(){
   }
 }
 
-function getSlotLabel(time){
+function getSlotDate(time){
   var parts = time.split(':');
   var slotH = parseInt(parts[0],10);
   var slotM = parseInt(parts[1],10) || 0;
@@ -156,12 +156,23 @@ function getSlotLabel(time){
   var slotFuture = (curH < slotH || (curH === slotH && curM <= slotM));
   var shopNotClosed = curH < CONFIG.schedule.closeHour;
 
-  if(isOpen && shopNotClosed && slotFuture) return 'Hoy ' + time;
+  var offset = 0;
+  if(!(isOpen && shopNotClosed && slotFuture)){
+    var next = getNextOpenDay(isOpen ? d+1 : d);
+    offset = (next - d + 7) % 7;
+  }
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset, slotH, slotM, 0, 0);
+}
 
-  var next = getNextOpenDay(isOpen ? d+1 : d);
-  if(next === d) return 'Hoy ' + time;
-  if(next === (d+1)%7) return 'Mañana ' + time;
-  return DAYS_CAPS[next] + ' ' + time;
+function getSlotLabel(time){
+  var date = getSlotDate(time);
+  var now = new Date();
+  var dateDay = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+  var todayDay = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  var diff = Math.round((dateDay - todayDay) / 86400000);
+  if(diff === 0) return 'Hoy ' + time;
+  if(diff === 1) return 'Mañana ' + time;
+  return DAYS_CAPS[date.getDay()] + ' ' + time;
 }
 
 function updateStatus(){
@@ -204,10 +215,10 @@ function updateFooterHours(){
 }
 
 function buildCalendarLink(hora){
-  var now = new Date();
-  var y = now.getFullYear();
-  var mo = now.getMonth() + 1;
-  var d = now.getDate();
+  var date = getSlotDate(hora);
+  var y = date.getFullYear();
+  var mo = date.getMonth() + 1;
+  var d = date.getDate();
   var parts = hora.split(':');
   var h = parseInt(parts[0],10);
   var m = parseInt(parts[1],10) || 0;
@@ -247,8 +258,8 @@ function reservar(hora){
   clicked.classList.add('booking');
   metaEvent('InitiateCheckout', selectedService + ' · ' + hora);
 
-  var now = new Date();
-  var fecha = now.toLocaleDateString('es-MX',{ weekday:'long', day:'2-digit', month:'long' });
+  var date = getSlotDate(hora);
+  var fecha = date.toLocaleDateString('es-MX',{ weekday:'long', day:'2-digit', month:'long' });
   var calLink = buildCalendarLink(hora);
 
   var mensaje =

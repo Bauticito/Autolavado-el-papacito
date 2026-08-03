@@ -53,6 +53,17 @@ function buildSlots(){
 
 var selectedService = null;
 
+var META_ENDPOINT = '/api/meta/events';
+
+function metaEvent(event, detail){
+  fetch(META_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event: event, detail: detail || '', url: window.location.href })
+  }).catch(function(){});
+  if(typeof fbq !== 'undefined') fbq('track', event, detail ? { content_name: detail } : {});
+}
+
 function selectService(name, el){
   if(selectedService === name){
     selectedService = null;
@@ -65,6 +76,7 @@ function selectService(name, el){
   selectedService = name;
   el.classList.add('selected');
   updateSlotHeader();
+  metaEvent('ViewContent', name);
 }
 
 function updateSlotHeader(){
@@ -233,6 +245,7 @@ function reservar(hora){
 
   clicked.disabled = true;
   clicked.classList.add('booking');
+  metaEvent('InitiateCheckout', selectedService + ' · ' + hora);
 
   var now = new Date();
   var fecha = now.toLocaleDateString('es-MX',{ weekday:'long', day:'2-digit', month:'long' });
@@ -293,6 +306,13 @@ function fetchSchedule(){
   if(floatingWa) floatingWa.href = getWaUrl('Hola, quiero información');
   if(mapsLink) mapsLink.href = CONFIG.address.mapsUrl;
 
+  if(btnWa) btnWa.addEventListener('click', function(){ metaEvent('Contact', 'WhatsApp'); });
+  if(btnCall) btnCall.addEventListener('click', function(){ metaEvent('Contact', 'Llamada'); });
+  if(floatingWa) floatingWa.addEventListener('click', function(){ metaEvent('Contact', 'WhatsApp flotante'); });
+
+  var franchise = document.querySelector('.franchise-card');
+  if(franchise) franchise.addEventListener('click', function(){ metaEvent('Lead', 'Sucursal $4000'); });
+
   var base = window.location.origin;
   var canonicalUrl = base + window.location.pathname;
   var canonical = document.createElement('link');
@@ -329,11 +349,7 @@ function fetchSchedule(){
     updateFooterHours();
 
     fetch('/api/track', { method: 'POST' }).catch(function(){});
-    fetch('/api/pixel-events', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ event: 'PageView', url: window.location.href })
-    }).catch(function(){});
+    metaEvent('PageView');
 
     setInterval(function(){ refreshSlots(); updateStatus(); }, 60000);
   }

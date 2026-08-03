@@ -90,8 +90,10 @@ function renderSlots(){
   if(!c) return;
   var slots = buildSlots();
   var now = new Date();
+  var d = now.getDay();
   var curH = now.getHours();
   var curM = now.getMinutes();
+  var isOpenNow = CONFIG.schedule.openDays.indexOf(d) !== -1 && curH >= CONFIG.schedule.openHour && curH < CONFIG.schedule.closeHour;
 
   var h = '<div class="gantt-track">';
   for(var i=0; i<slots.length; i++){
@@ -99,7 +101,7 @@ function renderSlots(){
     var parts = t.split(':');
     var slotH = parseInt(parts[0],10);
     var slotM = parseInt(parts[1],10) || 0;
-    var past = (curH > slotH || (curH === slotH && curM > slotM));
+    var past = isOpenNow && (curH > slotH || (curH === slotH && curM > slotM));
     h += '<div class="'+(past?'gantt-block past':'gantt-block')+'" data-time="'+t+'" title="'+getSlotLabel(t)+'" onclick="reservar(\''+t+'\')"></div>';
   }
   h += '</div><div class="gantt-labels">';
@@ -113,15 +115,17 @@ function renderSlots(){
 function refreshSlots(){
   var blocks = document.querySelectorAll('.gantt-block[data-time]');
   var now = new Date();
+  var d = now.getDay();
   var curH = now.getHours();
   var curM = now.getMinutes();
+  var isOpenNow = CONFIG.schedule.openDays.indexOf(d) !== -1 && curH >= CONFIG.schedule.openHour && curH < CONFIG.schedule.closeHour;
   for(var i=0; i<blocks.length; i++){
     if(blocks[i].disabled) continue;
     var t = blocks[i].getAttribute('data-time');
     var parts = t.split(':');
     var slotH = parseInt(parts[0],10);
     var slotM = parseInt(parts[1],10) || 0;
-    var past = (curH > slotH || (curH === slotH && curM > slotM));
+    var past = isOpenNow && (curH > slotH || (curH === slotH && curM > slotM));
     if(past) blocks[i].classList.add('past');
     else blocks[i].classList.remove('past');
   }

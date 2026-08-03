@@ -12,7 +12,7 @@ var CONFIG = {
   schedule: {
     openDays: [0,1,2,3,4,5,6],
     openHour: 8,
-    closeHour: 22,
+    closeHour: 20,
     slotInterval: 60
   },
   services: [

@@ -27,10 +27,10 @@ body{
 
 .bg-video{
   position:fixed;
-  top:-2%;
-  left:-2%;
-  width:104%;
-  height:104%;
+  top:-10%;
+  left:-10%;
+  width:120%;
+  height:120%;
   object-fit:cover;
   z-index:0;
   pointer-events:none;

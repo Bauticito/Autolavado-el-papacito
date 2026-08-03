@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /assets/
+Sitemap: https://autolavado-el-papacito.vercel.app/sitemap.xml

@@ -14,31 +14,30 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="styles.css">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{background:#000;font-family:'Inter',sans-serif;overflow:hidden}
-    .bg{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:1}
-    .content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;text-align:center}
-    h1{font-size:clamp(28px,6vw,52px);font-weight:800;color:#D4AF37;line-height:1.2;max-width:640px}
-    h1 span{color:#fff;display:block;font-size:clamp(22px,4.5vw,38px);margin-top:6px;font-weight:600}
-    p{color:#ccc;font-size:clamp(14px,2.5vw,18px);margin-top:20px;max-width:480px;line-height:1.6}
-    .btn{display:inline-flex;align-items:center;justify-content:center;background:#D4AF37;color:#000;text-decoration:none;padding:16px 40px;border-radius:4px;font-size:16px;font-weight:700;margin-top:28px;transition:background .15s}
-    .btn:hover{background:#F5D76E}
+    body.sucursal{overflow:hidden}
+    body.sucursal .bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:none}
+    body.sucursal .bg-overlay{background:rgba(0,0,0,.62)}
+    body.sucursal .container{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;text-align:center;max-width:none}
+    body.sucursal h1{font-size:clamp(28px,6vw,52px);font-weight:800;color:#D4AF37;line-height:1.2;max-width:640px;margin:0}
+    body.sucursal h1 span{color:#fff;display:block;font-size:clamp(22px,4.5vw,38px);margin-top:6px;font-weight:600}
+    body.sucursal .sucursal-desc{color:#ccc;font-size:clamp(14px,2.5vw,18px);margin-top:20px;max-width:480px;line-height:1.6}
+    body.sucursal .btn{margin-top:28px;padding:16px 40px}
     .back{position:fixed;top:20px;left:20px;z-index:3;color:#888;text-decoration:none;font-size:13px;font-weight:500;transition:color .15s}
     .back:hover{color:#D4AF37}
   </style>
 </head>
-<body>
+<body class="sucursal">
 
-<video class="bg" src="assets/negociador.mp4" autoplay loop muted playsinline></video>
-<div class="overlay"></div>
+<video class="bg-video" src="assets/negociador.mp4" autoplay loop muted playsinline></video>
+<div class="bg-overlay"></div>
 
 <a class="back" href="/">← Volver</a>
 
-<div class="content">
+<div class="container">
   <h1>Iniciá tu sucursal<span>solo por $4,000</span></h1>
-  <p>Nosotros nos encargamos de lo pesado. Vos solo encargate de atender.</p>
+  <p class="sucursal-desc">Nosotros nos encargamos de lo pesado. Vos solo encargate de atender.</p>
   <a class="btn" href="https://wa.me/524491063865?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20iniciar%20mi%20sucursal" target="_blank" rel="noopener">Quiero mi sucursal</a>
 </div>
 

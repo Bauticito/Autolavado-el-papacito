@@ -1,9 +1,7 @@
 {
   "name": "autolavado-el-papacito",
   "private": true,
-  "scripts": {
-    "build": ""
-  },
+  "scripts": {},
   "dependencies": {
     "@vercel/speed-insights": "^2.0.0"
   }

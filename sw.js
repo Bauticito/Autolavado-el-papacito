@@ -21,10 +21,16 @@ self.addEventListener('install', function(e){
   );
 });
 
-self.addEventListener('fetch', function(e){
+self.addEventListener('fetch', function(e) {
   e.respondWith(
-    caches.match(e.request).then(function(cached){
-      return cached || fetch(e.request);
+    fetch(e.request).then(function(response) {
+      var cloned = response.clone();
+      caches.open(CACHE).then(function(cache) {
+        cache.put(e.request, cloned);
+      });
+      return response;
+    }).catch(function() {
+      return caches.match(e.request);
     })
   );
 });

@@ -176,7 +176,8 @@ function updateStatus(){
     return;
   }
 
-  statusEl.textContent = 'Cerrado — Abrimos el ' + DAYS_CAPS[getNextOpenDay(d+1)];
+  var next = getNextOpenDay(d+1);
+  statusEl.textContent = (next === (d+1)%7) ? 'Disponible mañana' : 'Cerrado — Abrimos el ' + DAYS_CAPS[next];
 }
 
 function updateFooterHours(){

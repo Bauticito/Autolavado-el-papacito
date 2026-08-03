@@ -1,8 +1,5 @@
 {
   "cleanUrls": true,
-  "functions": {
-    "api/notify.js": { "runtime": "@vercel/node" }
-  },
   "redirects": [
     { "source": "/inicio", "destination": "/", "permanent": true }
   ],

@@ -53,17 +53,6 @@ function buildSlots(){
 
 var selectedService = null;
 
-var NOTIFY_EP = '/api/notify';
-
-function trackEvent(event, detail){
-  window.va && window.va('event', { name: event, data: { detail: detail || '' } });
-  fetch(NOTIFY_EP, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ event: event, detail: detail || '', ts: Date.now() })
-  }).catch(function(){});
-}
-
 function selectService(name, el){
   if(selectedService === name){
     selectedService = null;
@@ -76,7 +65,6 @@ function selectService(name, el){
   selectedService = name;
   el.classList.add('selected');
   updateSlotHeader();
-  trackEvent('service_select', name);
 }
 
 function updateSlotHeader(){
@@ -240,7 +228,6 @@ function reservar(hora){
 
   clicked.disabled = true;
   clicked.classList.add('booking');
-  trackEvent('slot_click', selectedService + ' · ' + hora);
 
   var now = new Date();
   var fecha = now.toLocaleDateString('es-MX',{ weekday:'long', day:'2-digit', month:'long' });
@@ -301,10 +288,6 @@ function fetchSchedule(){
   if(floatingWa) floatingWa.href = getWaUrl('Hola, quiero información');
   if(mapsLink) mapsLink.href = CONFIG.address.mapsUrl;
 
-  if(btnWa) btnWa.addEventListener('click', function(){ trackEvent('wa_button', 'principal'); });
-  if(btnCall) btnCall.addEventListener('click', function(){ trackEvent('call_click'); });
-  if(floatingWa) floatingWa.addEventListener('click', function(){ trackEvent('wa_button', 'flotante'); });
-
   var base = window.location.origin;
   var canonicalUrl = base + window.location.pathname;
   var canonical = document.createElement('link');
@@ -335,7 +318,6 @@ function fetchSchedule(){
   document.head.appendChild(ld);
 
   function finishInit(){
-    trackEvent('page_view');
     renderServices();
     renderSlots();
     updateStatus();

@@ -1,0 +1,13 @@
+{
+  "name": "Autolavado Express El Papacito",
+  "short_name": "El Papacito",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "description": "Lavado de autos en Aguascalientes. Reservá tu turno en 2 clics.",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "/assets/logo.png", "sizes": "634x442", "type": "image/png" }
+  ]
+}

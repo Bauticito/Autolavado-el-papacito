@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autolavado Express El Papacito | Aguascalientes</title>
+
+  <meta name="description" content="Autolavado Express El Papacito — lavado de autos premium en Aguascalientes. Servicio a domicilio $100 y local $150. Reservá tu turno en 2 clics." />
+  <meta name="author" content="Autolavado Express El Papacito" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="Autolavado Express El Papacito" />
+  <meta property="og:description" content="Lavado de autos premium en Aguascalientes. Rápido, sin esperas. Reservá en 2 clics." />
+  <meta property="og:image" content="/assets/logo.png" />
+  <meta property="og:image:width" content="634" />
+  <meta property="og:image:height" content="442" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_MX" />
+  <meta property="og:site_name" content="Autolavado Express El Papacito" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Autolavado Express El Papacito" />
+  <meta name="twitter:description" content="Lavado de autos premium en Aguascalientes. Reservá en 2 clics." />
+  <meta name="twitter:image" content="/assets/logo.png" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23D4AF37'/><text x='16' y='23' text-anchor='middle' font-family='system-ui' font-weight='800' font-size='17' fill='%23000'>EP</text></svg>" />
+
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#000000" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<video class="bg-video" src="assets/logo.mp4" autoplay loop muted playsinline></video>
+<div class="bg-overlay"></div>
+
+<main class="container">
+
+  <section class="hero">
+    <div class="status">
+      <span class="dot"></span>
+      <span id="status-text">Disponible hoy</span>
+    </div>
+  </section>
+
+  <section class="services">
+    <div class="section-title">¿Qué servicio querés?</div>
+    <p class="services-note">Ambos incluyen hidro, espuma, aspirado y encerado interior. &asymp;30 min por lavado.</p>
+    <div id="services-container"></div>
+  </section>
+
+  <section class="booking">
+    <div class="section-title">Elige tu turno</div>
+    <div id="slots-container" class="gantt"></div>
+  </section>
+
+  <section class="actions">
+    <a class="btn btn-wa" id="btn-whatsapp" href="#" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+    <a class="btn btn-call" id="btn-call" href="#">Llamar</a>
+  </section>
+
+  <footer>
+    <a href="#" id="maps-link" target="_blank" rel="noopener">Av San Felipe 129, Aguascalientes</a>
+    <span id="footer-hours"></span>
+  </footer>
+
+</main>
+
+<a class="floating-wa" id="floating-wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </svg>
+</a>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(function(){});
+}
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -327,6 +327,14 @@ function fetchSchedule(){
     renderSlots();
     updateStatus();
     updateFooterHours();
+
+    fetch('/api/track', { method: 'POST' }).catch(function(){});
+    fetch('/api/pixel-events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event: 'PageView', url: window.location.href })
+    }).catch(function(){});
+
     setInterval(function(){ refreshSlots(); updateStatus(); }, 60000);
   }
 

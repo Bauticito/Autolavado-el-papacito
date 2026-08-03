@@ -106,7 +106,7 @@ autolavado-el-papacito/
 
 | Componente | Estado |
 |------------|--------|
-| **Facebook Pixel client-side (fbq)** | ✅ Funcionando. ID: `1309829625537659` |
+| **Facebook Pixel client-side (fbq)** | ⚠️ El pixel se agregó en `ce16d8e`, pero todos los deploys desde ese commit fallaron (`invalid_function_runtime` en vercel.json). La producción quedó en `2fdd71d`, sin pixel ni endpoints. Fix de deploy en curso. |
 | **Meta CAPI server-side** | ❌ Roto. `META_ACCESS_TOKEN` no está configurado en Vercel. |
 | **Catálogo de productos** | ❌ Roto + nunca llamado desde el frontend. |
 | **Facebook Page** | ❌ No existe. `61592788830802` es un perfil personal, no una Page. |
@@ -170,8 +170,8 @@ autolavado-el-papacito/
 |-------|--------|
 | **Facebook Page** — crear o convertir perfil | Pendiente |
 | **META_ACCESS_TOKEN** — setear en Vercel | Pendiente |
-| **Vercel Analytics** — activar en dashboard | Pendiente (2 clicks) |
-| **Vercel Speed Insights** — activar en dashboard | Pendiente (2 clicks) |
+| **Vercel Analytics** — activar en dashboard | ✅ Activo — `webAnalytics.enabledAt` presente, `hasData: true` |
+| **Vercel Speed Insights** — activar en dashboard | ✅ Activo — `speedInsights.enabledAt` presente, `hasData: true` |
 | **Custom domain** — dominio propio | Pendiente |
 | **CSP header** — Content-Security-Policy | Pendiente |
 | **Fix fecha mañana** — Calendar link y WhatsApp msg | ✅ Hecho (getSlotDate) |
